@@ -6,10 +6,10 @@ const bookSchema = new mongoose.Schema({
     title: String,
     editorial: String,
     pages: Number,
-    role:{type: mongoose.Schema.ObjectId, ref:"roles"},
-    registerDate:{type: Date, default: Date.now},
-    dbStatus:true
-})
+    user: {type: mongoose.Schema.ObjectId, ref:"users"},
+    registerDate: {type:Date, default: Date.now},
+    dbStatus: Boolean
+});
 
 const book = mongoose.model("books", bookSchema);
 export default book;

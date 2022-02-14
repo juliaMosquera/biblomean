@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 
-const dbConnection = () => {
+const dbConnection = async () => {
     try {
-        mongoose.connect(process.env.DB_CONNECTION, {
+        await mongoose.connect(process.env.DB_CONNECTION, {
             useNewUrlParser:true,
             useUnifiedTopology:true,
         });
