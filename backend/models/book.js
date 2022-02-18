@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
-    author: String, 
-    category: String,
     title: String,
+    author: String,
+    category: String,
     editorial: String,
     pages: Number,
     user: {type: mongoose.Schema.ObjectId, ref:"users"},
