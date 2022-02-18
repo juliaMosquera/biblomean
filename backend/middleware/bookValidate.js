@@ -15,8 +15,6 @@ const idUser = async (req, res, next) =>{
     const userId = await user.findOne({title: "book"})
     if(!userId) return res.status(500).send({message: "No user was assigned"})
 
-    // como agregar datos a un objeto en javaScript
-    // req.body ---> role: roleId._id
     req.body.user = userId._id;
     next();
 }
