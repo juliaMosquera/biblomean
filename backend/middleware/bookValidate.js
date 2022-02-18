@@ -1,4 +1,5 @@
 import book from "../models/book.js";
+import user from "../models/user.js";
 
 const existingBook = async (req, res, next) => {
     if(!req.body.editorial)
@@ -10,4 +11,14 @@ const existingBook = async (req, res, next) => {
     next();
 }
 
-export default { existingBook }
+const idUser = async (req, res, next) =>{
+    const userId = await user.findOne({title: "book"})
+    if(!userId) return res.status(500).send({message: "No role was assigned"})
+
+    // como agregar datos a un objeto en javaScript
+    // req.body ---> role: roleId._id
+    req.body.user = userId._id;
+    next();
+}
+
+export default { existingBook, idUser }

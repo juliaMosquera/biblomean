@@ -6,6 +6,7 @@ const router = express.Router();
 //http://localhost:3001/api/book/registerBook
 router.post("/registerBook",
 bookMidd.existingBook,
+bookMidd.idUser,
 bookController.registerBook)
 
 router.get("/listBook/:title?", bookController.listBook)

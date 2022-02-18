@@ -6,7 +6,7 @@ const registerBook = async (req, res) => {
   if (!req.body.title || !req.body.author || !req.body.category || !req.body.pages)
     return res.status(400).send({ message: "Imcomplete data" });
 
-  let schema = new book({
+   const schema = new book({
     title: req.body.title,
     author: req.body.auhtor,
     category: req.body.category,
@@ -20,7 +20,7 @@ const registerBook = async (req, res) => {
   if (!result)
     return res.status(500).send({ message: "Failed to register book" });
 
-    try {  
+    try {
       return res.status(200).json({
           token: jwt.sign({
               _id: result._id,
