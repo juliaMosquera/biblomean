@@ -60,20 +60,13 @@ const deleteBook = async (req, res) => {
 const updateBook = async (req, res) => {
   if(!req.body._id || !req.body.title || !req.body.auhtor || !req.body.category || req.body.editorial || req.body.pages || req.body.user)
   return res.status(400).send({message: "Incomplete data"})
-  let pass = "";
 
-    if (!req.body.password) {
-        const findUser = await user.findOne ({email: req.body.email})
-        pass = findUser.password
-    } else {
-        pass = await bcrypt.hash(req.body.password, 10)
-    }
     const  editBook = await user.findByIdAndUpdate(req.body._id, {
         title: req.body.title,
         auhtor: req.body.auhtor,
         category: req.body.category,
         editorial: req.body.editorial,
-        password: pass,
+        page: req.body.page,
         user: req.body.user
     })
     if(!editBook) return res.status(500).send({message: "Error editing book"})
