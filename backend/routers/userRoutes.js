@@ -5,13 +5,15 @@ import roleMidd from "../middleware/roleValidate.js";
 const router = express.Router();
 
 //http://localhost:3001/api/user/registerUser
-router.post("/registerUser", 
-userMidd.existingUser, 
-roleMidd.existingRole, 
+router.post("/registerUser",
+userMidd.existingUser,
+roleMidd.existingRole,
 userController.registerUser);
 
 router.get("/listUser/:name?", userController.listUser)
 
 router.post("/login", userController.login)
+router.put("/delete/:_id", userController.deleteUser)
+router.put("/updateUserAdmin", userController.updateUserAdmin)
 
 export default router;

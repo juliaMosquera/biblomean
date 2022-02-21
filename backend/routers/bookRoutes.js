@@ -11,4 +11,7 @@ bookController.registerBook)
 
 router.get("/listBook/:title?", bookController.listBook)
 
+router.put("/delete/:_id", bookController.deleteBook)
+router.put("/updateBook", bookController.updateBook)
+
 export default router;

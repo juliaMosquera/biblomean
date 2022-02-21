@@ -37,7 +37,7 @@ const registerBook = async (req, res) => {
 };
 
 const listBook = async (req, res) => {
-  let books = await book.find({ title: new RegExp(req.params["title"])})
+  let books = await book.find({$and:[{title: new RegExp(req.params["title"])},{dbStatus: "true"}],})
   .populate("user")
   .exec();
   if(books.length === 0)
@@ -46,4 +46,40 @@ const listBook = async (req, res) => {
   return res.status(200).send({ books})
 }
 
-export default { registerBook, listBook };
+const deleteBook = async (req, res) => {
+  if(!req.params["_id"]) 
+  return res.status(400).send({ message: "Incomplete data"})
+
+  const books = await book.findByIdAndUpdate(req.params["_id"], {dbStatus: false,})
+
+  return !books
+  ? res.status(400).send({message: "Error deleting book"})
+  : res.status(200).send({ message: "Book deleted"})
+};
+
+const updateBook = async (req, res) => {
+  if(!req.body._id || !req.body.title || !req.body.auhtor || !req.body.category || req.body.editorial || req.body.pages || req.body.user)
+  return res.status(400).send({message: "Incomplete data"})
+  let pass = "";
+
+    if (!req.body.password) {
+        const findUser = await user.findOne ({email: req.body.email})
+        pass = findUser.password
+    } else {
+        pass = await bcrypt.hash(req.body.password, 10)
+    }
+    const  editBook = await user.findByIdAndUpdate(req.body._id, {
+        title: req.body.title,
+        auhtor: req.body.auhtor,
+        category: req.body.category,
+        editorial: req.body.editorial,
+        password: pass,
+        user: req.body.user
+    })
+    if(!editBook) return res.status(500).send({message: "Error editing book"})
+    return res.status(200).send({message: "book updated"})
+}
+
+
+
+export default { registerBook, listBook, deleteBook, updateBook};
