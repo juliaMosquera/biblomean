@@ -8,7 +8,7 @@ const registerBook = async (req, res) => {
 
    const schema = new book({
     title: req.body.title,
-    author: req.body.auhtor,
+    author: req.body.author,
     category: req.body.category,
     editorial: req.body.editorial,
     pages: req.body.pages,
@@ -58,15 +58,15 @@ const deleteBook = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
-  if(!req.body._id || !req.body.title || !req.body.auhtor || !req.body.category || req.body.editorial || req.body.pages || req.body.user)
+  if(!req.body._id || !req.body.title || !req.body.author || !req.body.category || !req.body.editorial || !req.body.pages || !req.body.user)
   return res.status(400).send({message: "Incomplete data"})
 
-    const  editBook = await user.findByIdAndUpdate(req.body._id, {
+    const editBook = await book.findByIdAndUpdate(req.body._id, {
         title: req.body.title,
         auhtor: req.body.auhtor,
         category: req.body.category,
         editorial: req.body.editorial,
-        page: req.body.page,
+        pages: req.body.pages,
         user: req.body.user
     })
     if(!editBook) return res.status(500).send({message: "Error editing book"})
