@@ -66,7 +66,6 @@ const updateBook = async (req, res) => {
         auhtor: req.body.auhtor,
         category: req.body.category,
         editorial: req.body.editorial,
-        pages: req.body.pages,
         user: req.body.user
     })
     if(!editBook) return res.status(500).send({message: "Error editing book"})

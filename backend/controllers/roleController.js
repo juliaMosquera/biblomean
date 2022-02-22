@@ -25,4 +25,28 @@ const listRole = async (req, res) => {
 
 }
 
-export default { registerRole, listRole };
+const deleteRole = async (req, res) => {
+  if(!req.params["_id"]) 
+  return res.status(400).send({ message: "Incomplete data"})
+
+  const roles = await role.findByIdAndUpdate(req.params["_id"], {dbStatus: false,})
+
+  return !roles
+  ? res.status(400).send({message: "Error deleting role"})
+  : res.status(200).send({ message: "Role deleted"})
+};
+
+const updateRole = async (req, res) => {
+  if(!req.body._id || !req.body.name || !req.body.description)
+  return res.status(400).send({message: "Incomplete data"})
+
+  const editRole = await role.findByIdAndUpdate(req.body._id, {
+    name: req.body.name,
+    description: req.body.description
+  })
+  if(!editRole) return res.status(500).send({ message: "Error editing role"})
+  return res.status(200).send({message: "Role update"})
+}
+
+
+export default { registerRole, listRole, deleteRole, updateRole};
