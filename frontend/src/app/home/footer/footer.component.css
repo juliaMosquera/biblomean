@@ -1,0 +1,7 @@
+.bgFooter{
+    background-color: hsl(30, 9%, 9%);
+    color: #f5f2ee;
+    position: absolute;
+    width: 100%;
+    bottom: 0p;
+}
