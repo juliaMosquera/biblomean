@@ -29,8 +29,8 @@ durationInSeconds: number = 2000;
   registerUser(){
     if (
       !this.registerData.name || 
-      !this.registerData.email || 
       !this.registerData.password ||
+      !this.registerData.email || 
       !this.registerData.address ||
       !this.registerData.phone
       ) {
