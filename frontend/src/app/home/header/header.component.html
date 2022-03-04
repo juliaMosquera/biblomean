@@ -1,18 +1,19 @@
 <mat-toolbar color="bgHeader">
-    <ul>
-      <a routerLink="listBook">List book</a>
-    </ul>
-    <ul>
-      <a routerLink="saveBook">Create book</a>
-    </ul>
-    <ul>
-      <a routerLink="listUser">Admin</a>
-    </ul>
-      <span class="headerSpacer"></span>
-    <ul>
-      <a mat-button routerLink="signUp">sign up</a>
-      <a mat-button routerLink="login">Login</a>
-      <a mat-button>Logout</a>
-    </ul>
-    
-  </mat-toolbar>
+  <ul>
+    <a *ngIf="_userService.loggedIn()" routerLink="listBook">List book</a>
+  </ul>
+  <ul>
+    <a *ngIf="_userService.loggedIn()" routerLink="saveBook">Create book</a>
+  </ul>
+  <ul>
+    <a *ngIf="_userService.loggedIn()" routerLink="listUser">Admin</a>
+  </ul>
+  <span class="headerSpacer"></span>
+  <ul>
+    <a *ngIf="!_userService.loggedIn()" mat-button routerLink="signUp"
+      >Sign up</a
+    >
+    <a *ngIf="!_userService.loggedIn()" mat-button routerLink="login">Login</a>
+    <a *ngIf="_userService.loggedIn()" (click)="logout()" mat-button>Logout</a>
+  </ul>
+</mat-toolbar>

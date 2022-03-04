@@ -4,30 +4,27 @@
     <mat-card-content>
       <div class="container">
         <mat-form-field>
-            <input [(ngModel)]="loginData.email"
+          <input
+            [(ngModel)]="loginData.email"
             type="email"
-          matInput
-          placeholder="Email"
-          required
+            matInput
+            placeholder="Email"
+            required
           />
         </mat-form-field>
         <mat-form-field>
-            <input [(ngModel)]="loginData.password"
+          <input
+            [(ngModel)]="loginData.password"
             type="password"
-          matInput
-          placeholder="Password"
-          required
+            matInput
+            placeholder="Password"
+            required
           />
         </mat-form-field>
       </div>
     </mat-card-content>
     <mat-card-actions>
-        <button
-        (click)="login()"
-        class="button"
-        mat-raised-button
-        >Login</button>
+      <button (click)="login()" class="button" mat-raised-button>Login</button>
     </mat-card-actions>
   </mat-card>
 </div>
-
