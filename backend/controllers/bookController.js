@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import moment from "moment";
 
 const registerBook = async (req, res) => {
-  if (!req.body.title || !req.body.author || !req.body.category || !req.body.pages)
+  if (!req.body.title || !req.body.author || !req.body.category || !req.body.bookStatus)
     return res.status(400).send({ message: "Imcomplete data" });
 
    const schema = new book({
@@ -11,7 +11,7 @@ const registerBook = async (req, res) => {
     author: req.body.author,
     category: req.body.category,
     editorial: req.body.editorial,
-    pages: req.body.pages,
+    bookStatus: "NotAvailable",
     user: req.body.user,
     dbStatus: true,
   });
@@ -58,17 +58,13 @@ const deleteBook = async (req, res) => {
 };
 
 const updateBook = async (req, res) => {
-  if(!req.body._id || !req.body.title || !req.body.author || !req.body.category || !req.body.editorial || !req.body.pages || !req.body.user)
+  if(!req.body._id || !req.body.bookStatus)
   return res.status(400).send({message: "Incomplete data"})
 
-    const editBook = await book.findByIdAndUpdate(req.body._id, {
-        title: req.body.title,
-        auhtor: req.body.auhtor,
-        category: req.body.category,
-        editorial: req.body.editorial,
-        user: req.body.user
+    const bookUpdate = await book.findByIdAndUpdate(req.body._id, {
+        bookStatus: req.body.bookStatus,
     })
-    if(!editBook) return res.status(500).send({message: "Error editing book"})
+    if(!bookUpdate) return res.status(500).send({message: "Error editing book"})
     return res.status(200).send({message: "book updated"})
 }
 

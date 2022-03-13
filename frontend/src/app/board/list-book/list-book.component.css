@@ -1,0 +1,31 @@
+.accordion_display{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.accordion_size{
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    padding: 100px 16px 0px;
+}
+
+.spacer{
+    flex: 1 0 auto;
+}
+
+.btnNotAvailable{
+    background-color: #a52a2a;
+    color: #f0f8ff;
+}
+
+
+.btnAvailable{
+    background-color: #99a52a;
+    color: #f0f8ff;
+}
+
+
+
+

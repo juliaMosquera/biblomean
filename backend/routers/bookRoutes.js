@@ -3,15 +3,15 @@ import bookController from "../controllers/bookController.js";
 import bookMidd from "../middleware/bookValidate.js";
 const router = express.Router();
 
-//http://localhost:3001/api/book/registerBook
-router.post("/registerBook",
+
+router.post("/saveBook",
 bookMidd.existingBook,
 bookMidd.idUser,
 bookController.registerBook)
 
-router.get("/listBook/:title?", bookController.listBook)
+router.get("/listBook", bookController.listBook)
 
-router.put("/delete/:_id", bookController.deleteBook)
+router.delete("/deleteBook/:_id", bookController.deleteBook)
 router.put("/updateBook", bookController.updateBook)
 
 export default router;

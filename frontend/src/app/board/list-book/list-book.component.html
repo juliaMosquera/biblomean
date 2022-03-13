@@ -1,1 +1,49 @@
-<p>list-book works!</p>
+<div class="accordion_display">
+  <div class="accordion_size">
+    <mat-accordion multi="true" *ngIf="bookData.length">
+      <mat-expansion-panel *ngFor="let book of bookData">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <span>{{ book.title }}</span>
+            <span class="spacer"></span>
+            <button
+              class="btnNotAvailable"
+              *ngIf="book.bookStatus == 'not-available'"
+              mat-raised-button
+            >
+              {{ book.bookStatus }}
+            </button>
+            <button
+              class="btnAvailable"
+              *ngIf="book.bookStatus == 'available'"
+              mat-raised-button
+            >
+              {{ book.bookStatus }}
+            </button>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+        </mat-panel-description>
+        <mat-action-row>
+          <button
+            class="btnNotAvailable"
+            mat-raised-button
+            *ngIf="book.bookStatus != 'not-available'"
+            (click)="updateBook(book, 'not-available')"
+          >
+          NotAvailable
+          </button>
+          <button
+            class="btnAvailable"
+            mat-raised-button
+            (click)="updateBook(book, 'available')"
+          >
+          Available
+          </button>
+          <span class="spacer"></span>
+          <mat-icon color="primary" (click)="deleteBook(book)">delete</mat-icon>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

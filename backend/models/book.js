@@ -5,7 +5,7 @@ const bookSchema = new mongoose.Schema({
     author: String,
     category: String,
     editorial: String,
-    pages: Number,
+    bookStatus: String,
     user: {type: mongoose.Schema.ObjectId, ref:"users"},
     registerDate: {type:Date, default: Date.now},
     dbStatus: Boolean
