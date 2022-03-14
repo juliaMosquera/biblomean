@@ -50,7 +50,7 @@ const deleteBook = async (req, res) => {
   if(!req.params["_id"]) 
   return res.status(400).send({ message: "Incomplete data"})
 
-  const books = await book.findByIdAndUpdate(req.params["_id"], {dbStatus: false,})
+  const books = await book.findByIdAndDelete(req.params["_id"], {dbStatus: false,})
 
   return !books
   ? res.status(400).send({message: "Error deleting book"})
