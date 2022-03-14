@@ -13,7 +13,6 @@ const registerBook = async (req, res) => {
     editorial: req.body.editorial,
     bookStatus: "NotAvailable",
     user: req.body.user,
-    dbStatus: true,
   });
 
   let result = await schema.save();
@@ -37,7 +36,7 @@ const registerBook = async (req, res) => {
 };
 
 const listBook = async (req, res) => {
-  let books = await book.find({$and:[{title: new RegExp(req.params["title"])},{dbStatus: "true"}],})
+  let books = await book.find({$and:[{title: new RegExp(req.params["title"])},],})
   .populate("user")
   .exec();
   if(books.length === 0)
@@ -50,7 +49,7 @@ const deleteBook = async (req, res) => {
   if(!req.params["_id"]) 
   return res.status(400).send({ message: "Incomplete data"})
 
-  const books = await book.findByIdAndDelete(req.params["_id"], {dbStatus: false,})
+  const books = await book.findByIdAndDelete(req.params["_id"],)
 
   return !books
   ? res.status(400).send({message: "Error deleting book"})

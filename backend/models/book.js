@@ -8,7 +8,6 @@ const bookSchema = new mongoose.Schema({
     bookStatus: String,
     user: {type: mongoose.Schema.ObjectId, ref:"users"},
     registerDate: {type:Date, default: Date.now},
-    dbStatus: Boolean
 });
 
 const book = mongoose.model("books", bookSchema);
