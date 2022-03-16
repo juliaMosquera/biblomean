@@ -2,51 +2,59 @@ import role from "../models/role.js";
 
 const registerRole = async (req, res) => {
   if (!req.body.name || !req.body.description)
-    return res.status(400).send({ message: "Imcomplete data" });
+    return res.status(400).send({ message: 'Incomplete data' });
 
-  let schema = new role({
+  const schema = new role({
     name: req.body.name,
     description: req.body.description,
     dbStatus: true,
   });
 
-  let result = await schema.save();
-  if (!result)
-    return res.status(500).send({ message: "Failed to register role" });
-
-  res.status(200).send({ result });
+  const roles = await schema.save();
+  return !roles
+    ? res.status(500).send({ message: 'Failed to register role' })
+    : res.status(200).send({ roles });
 };
 
 const listRole = async (req, res) => {
-  let roles = await role.find();
-  if (roles.length === 0)
-  return res.status(400).send({ message: "No search results"})
-  return res.status(200).send({ roles})
+  const roles = await role.find({
+    name: new RegExp(req.params['name']),
+  });
+  return roles.length == 0
+    ? res.status(400).send({ message: 'Empty role list' })
+    : res.status(200).send({ roles });
 
 }
 
 const deleteRole = async (req, res) => {
-  if(!req.params["_id"]) 
-  return res.status(400).send({ message: "Incomplete data"})
-
-  const roles = await role.findByIdAndUpdate(req.params["_id"], {dbStatus: false,})
-
-  return !roles
-  ? res.status(400).send({message: "Error deleting role"})
-  : res.status(200).send({ message: "Role deleted"})
+  const deletedRole = await role.findByIdAndUpdate(
+    { _id: req.params['_id'] },
+    { dbStatus: false }
+  );
+  return !deletedRole
+    ? res.status(400).send({ message: 'Role no found' })
+    : res.status(200).send({ message: 'Role deleted' });
 };
 
 const updateRole = async (req, res) => {
-  if(!req.body._id || !req.body.name || !req.body.description)
-  return res.status(400).send({message: "Incomplete data"})
+  if (!req.body.description)
+  return res.status(400).send({ message: 'Incomplete data' });
 
-  const editRole = await role.findByIdAndUpdate(req.body._id, {
-    name: req.body.name,
-    description: req.body.description
-  })
-  if(!editRole) return res.status(500).send({ message: "Error editing role"})
-  return res.status(200).send({message: "Role update"})
-}
+const editedRole = await role.findByIdAndUpdate(req.body._id, {
+  description: req.body.description,
+});
+
+return !editedRole
+  ? res.status(500).send({ message: 'Failed to editing role' })
+  : res.status(200).send({ message: 'Role updated' });
+};
+
+const getRoleById = async (req, res) => {
+  const roleId = await role.findById({ _id: req.params['_id'] });
+  return !roleId
+    ? res.status(400).send({ message: 'No search results' })
+    : res.status(200).send({ roleId });
+};
 
 
-export default { registerRole, listRole, deleteRole, updateRole};
+export default { registerRole, listRole, deleteRole, updateRole, getRoleById};

@@ -12,10 +12,9 @@ const existingBook = async (req, res, next) => {
 }
 
 const idUser = async (req, res, next) =>{
-    const userId = await user.findOne({title: "book"})
+    const userId = await user.findOne({_id: req.user._id})
     if(!userId) return res.status(500).send({message: "No user was assigned"})
 
-    req.body.user = userId._id;
     next();
 }
 

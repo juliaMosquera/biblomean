@@ -12,8 +12,8 @@ export class BookService {
     this.env = environment.APP_URL;
   }
 
-  saveBook(book: any){
-    return this._http.post<any>(this.env + '/book/saveBook', book);
+  registerBook(book: any){
+    return this._http.post<any>(this.env + '/book/registerBook', book);
   }
 
   updateBook(book: any){

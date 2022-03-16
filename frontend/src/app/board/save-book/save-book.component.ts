@@ -27,7 +27,7 @@ export class SaveBookComponent implements OnInit {
       this.bookData = {};
      }
 
-     saveBook(){
+     registerBook(){
       if (
         !this.bookData.title || 
         !this.bookData.author || 
@@ -39,7 +39,7 @@ export class SaveBookComponent implements OnInit {
           this.message = 'Incomplete data'
           this.openSnackBarError();
       } else {
-        this._bookService.saveBook(this.bookData).
+        this._bookService.registerBook(this.bookData).
          subscribe({
            next: (v) => {
             this._router.navigate(['/listBook']);

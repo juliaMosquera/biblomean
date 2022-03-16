@@ -1,19 +1,25 @@
 import express from "express";
 import userController from "../controllers/userController.js";
-import userMidd from "../middleware/userValidate.js";
+import auth from "../middleware/auth.js";
+import midleExisting from "../middleware/userValidate.js";
 import roleMidd from "../middleware/roleValidate.js";
+
+
+
 const router = express.Router();
 
-//http://localhost:3001/api/user/registerUser
+
 router.post("/registerUser",
-userMidd.existingUser,
-roleMidd.existingRole,
+midleExisting.existingUser,
+roleMidd.getRoleUser,
 userController.registerUser);
 
-router.get("/listUser/:name?", userController.listUser)
+router.get("/listUser", userController.listUser)
 
-router.post("/login", userController.login)
+router.post("/login", userController.login);
+
 router.put("/delete/:_id", userController.deleteUser)
-router.put("/updateUserAdmin", userController.updateUserAdmin)
+
+router.put("/updateUserAdmin", userController.updateUser)
 
 export default router;
